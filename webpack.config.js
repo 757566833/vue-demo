@@ -14,15 +14,15 @@ module.exports = (env, argv) => {
             app: './src/main.js'
         },
         output: {
-            filename: '[name]/[name].[hash].js',
+            filename: (cmd!=='production'&&cmd!=='development')?'[name].js':'[name]/[name].[hash].js',
             path: path.resolve(__dirname, 'public', 'asset'),
             publicPath: '/asset/'
         },
         devServer: {
-            contentBase: path.join(__dirname, 'public'),
+            contentBase: path.join(__dirname, 'devServer'),
             hot: true,
             // compress: true,
-            publicPath: '/asset/',
+            publicPath: '/',
             port: 9000,
             overlay: true,
         },
@@ -107,7 +107,7 @@ module.exports = (env, argv) => {
         },
         plugins: [
             new VueLoaderPlugin(),
-            // new CleanWebpackPlugin(),
+            new CleanWebpackPlugin(),
             new MiniCssExtractPlugin({
                 filename: '[name]/[name].[contenthash].css'
             }),
