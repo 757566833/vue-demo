@@ -9,6 +9,7 @@ const {
 
 module.exports = (env, argv) => {
     const cmd = argv.mode;
+    console.log()
     const config = {
         entry: {
             app: './src/main.js'
@@ -18,7 +19,15 @@ module.exports = (env, argv) => {
             path: path.resolve(__dirname, 'public', 'asset'),
             publicPath: '/asset/'
         },
+        resolve: {
+            alias: {
+                // vue: 'vue/dist/vue.js',
+            }
+        },
         devServer: {
+            historyApiFallback:{
+                index:`${argv.hotname}.html`
+            },
             contentBase: path.join(__dirname, 'devServer'),
             hot: true,
             // compress: true,
@@ -120,18 +129,12 @@ module.exports = (env, argv) => {
             
         ]
     };
-    if (cmd == 'development') {
-        config.plugins.push(new HtmlWebpackPlugin({
-            title: 'app',
-            filename: path.resolve(__dirname, 'public', `index.html`),
-            template: path.resolve(__dirname, 'viewBabel', 'babel.ejs'),
-            chunks: ['app']
-        }));
-    }
     if (cmd == 'production') {
         config.plugins.push(new BundleAnalyzerPlugin({
             analyzerPort: 8919
         }));
+    }else{
+        config.resolve.alias.vue = 'vue/dist/vue.js'
     }
     return config;
 };
