@@ -9,9 +9,9 @@ router.get('/hello', async (ctx) => {
     ctx.status = 200;
     ctx.body = JSON.stringify(
         {
-            code:0,
-            data:'serverHello!',
-            msg:''
+            code: 0,
+            data: 'serverHello!',
+            msg: ''
         }
     );
 })
@@ -23,9 +23,9 @@ router.get('/interfaceError', async (ctx) => {
     ctx.status = 200;
     ctx.body = JSON.stringify(
         {
-            code:-1,
-            data:'',
-            msg:'interfaceError'
+            code: -1,
+            data: '',
+            msg: 'interfaceError'
         }
     );
 })
@@ -41,10 +41,10 @@ router.get('/**', async (ctx) => {
 const app = new Koa();
 
 app.use(serve(path.join(__dirname, 'public'), {
-  maxage: 1
+    maxage: 365 * 24 * 60 * 60
 }));
 app.use(views(__dirname + '/views', {
-  extension: 'ejs'
+    extension: 'ejs'
 }))
 app.use(router.routes()).use(router.allowedMethods())
 

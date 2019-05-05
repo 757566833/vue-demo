@@ -16,7 +16,10 @@ import {
   MenuItemGroup,
   Table,
   TableColumn,
-  Input
+  Input,
+  Message,
+  Dialog,
+  MessageBox
 } from 'element-ui';
 // import 'element-ui/lib/theme-chalk/index.css';
 Vue.config.productionTip = false
@@ -32,6 +35,9 @@ Vue.use(MenuItemGroup)
 Vue.use(Table)
 Vue.use(TableColumn)
 Vue.use(Input)
+Vue.use(Dialog)
+Vue.prototype.$message = Message;
+Vue.prototype.$confirm = MessageBox.confirm;
 new Vue({
   el: '#app',
   render: h => h(App),

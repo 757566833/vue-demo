@@ -12,7 +12,8 @@ module.exports = (env, argv) => {
     console.log()
     const config = {
         entry: {
-            app: './src/main.js'
+            app: './src/app.js',
+            login: './src/login.js'
         },
         output: {
             filename: (cmd!=='production'&&cmd!=='development')?'[name].js':'[name]/[name].[hash].js',
@@ -126,7 +127,12 @@ module.exports = (env, argv) => {
                 template: path.resolve(__dirname, 'viewBabel', 'babel.ejs'),
                 chunks: ['app']
             }),
-            
+            new HtmlWebpackPlugin({
+                title: 'login',
+                filename: path.resolve(__dirname, 'views', `login.ejs`),
+                template: path.resolve(__dirname, 'viewBabel', 'babel.ejs'),
+                chunks: ['login']
+            }),
         ]
     };
     if (cmd == 'production') {
